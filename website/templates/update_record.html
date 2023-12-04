@@ -1,12 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 <div class ="col-md-6 offset-md-3">
-<h1>Register</h1>
+<h1>Add Record</h1>
 <br>
-    <form method = "POST" action="">
-        {% csrf_token %}
-
-        {% if form.errors %}
+<form method = "POST">
+    {% csrf_token %}
+    {% if form.errors %}
             <div class="alert alert-warning alert-dismissible fade show" role="alert">
                 Error
                 {% for field in form %}
@@ -17,11 +16,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 		{% endif %}
+    
+    {{form.as_p}}
+<br>
+    
+  <button type="submit" class="btn btn-secondary">Update Record</button>
+  <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
 
-        {{form.as_p}}
-
-        <br>
-        <button type="submit" class="btn btn-secondary">Register</button>
-    </form>
+</form>
 </div>
-{% endblock content %}
+{% endblock %}

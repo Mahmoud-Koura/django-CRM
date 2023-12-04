@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm  # to get ready Form
 from django.contrib.auth.models import User  # allows us to creat users
 from django import forms
+from .models import Record
 
 
 class SignUpForm(UserCreationForm):
@@ -21,7 +22,7 @@ class SignUpForm(UserCreationForm):
         self.fields['username'].widget.attrs['class'] = 'form-control'
         self.fields['username'].widget.attrs['placeholder'] = 'User Name'
         self.fields['username'].label = ''
-        self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
+        self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.</small></span>'
 
         self.fields['password1'].widget.attrs['class'] = 'form-control'
         self.fields['password1'].widget.attrs['placeholder'] = 'password'
@@ -32,3 +33,28 @@ class SignUpForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'Confirm password'
         self.fields['password2'].label = ''
         self.fields['password2'].help_text = '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
+
+
+# Creat Add Record Form
+
+class AddRecordForm(forms.ModelForm):
+    first_name = forms.CharField(required=True, widget=forms.widgets.TextInput(
+        attrs={"placeholder": 'First Name', 'class': 'form-control'}), label='')
+    last_name = forms.CharField(required=True, widget=forms.widgets.TextInput(
+        attrs={"placeholder": 'Last Name', 'class': 'form-control'}), label='')
+    email = forms.CharField(required=True, widget=forms.widgets.TextInput(
+        attrs={"placeholder": 'Email', 'class': 'form-control'}), label='')
+    phone = forms.CharField(required=True, widget=forms.widgets.TextInput(
+        attrs={"placeholder": 'Phone Number', 'class': 'form-control'}), label='')
+    address = forms.CharField(required=True, widget=forms.widgets.TextInput(
+        attrs={"placeholder": 'Address', 'class': 'form-control'}), label='')
+    city = forms.CharField(required=True, widget=forms.widgets.TextInput(
+        attrs={"placeholder": 'city', 'class': 'form-control'}), label='')
+    state = forms.CharField(required=True, widget=forms.widgets.TextInput(
+        attrs={"placeholder": 'state', 'class': 'form-control'}), label='')
+    zipcode = forms.CharField(required=True, widget=forms.widgets.TextInput(
+        attrs={"placeholder": 'zipcode', 'class': 'form-control'}), label='')
+
+    class Meta:
+        model = Record
+        exclude = ('user',)
